@@ -1,5 +1,5 @@
 import { type FormEvent, useCallback, useEffect, useState } from "react";
-import { PrimaryButton,TextInput } from "@coral-xyz/react-common";
+import { PrimaryButton, TextInput } from "@coral-xyz/react-common";
 import { useCustomTheme } from "@coral-xyz/themes";
 import { AlternateEmail } from "@mui/icons-material";
 import { Box, InputAdornment } from "@mui/material";
@@ -11,9 +11,11 @@ export const UsernameForm = ({
   onNext,
 }: {
   inviteCode: string;
-  onNext: (username: string) => void;
+  onNext: (username: string, firstName: string, lastName: string) => void;
 }) => {
   const [username, setUsername] = useState("");
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
   const [error, setError] = useState("");
   const theme = useCustomTheme();
 
@@ -26,20 +28,20 @@ export const UsernameForm = ({
       e.preventDefault();
 
       try {
-        const res = await fetch(`https://auth.xnfts.dev/users/${username}`, {
-          headers: {
-            "x-backpack-invite-code": String(inviteCode),
-          },
-        });
-        const json = await res.json();
-        if (!res.ok) throw new Error(json.message || "There was an error");
+        // const res = await fetch(`https://auth.xnfts.dev/users/${username}`, {
+        //   headers: {
+        //     "x-backpack-invite-code": String(inviteCode),
+        //   },
+        // });
+        // const json = await res.json();
+        // if (!res.ok) throw new Error(json.message || "There was an error");
 
-        onNext(username);
+        onNext(username, firstName, lastName);
       } catch (err: any) {
         setError(err.message);
       }
     },
-    [username]
+    [username, firstName, lastName]
   );
 
   return (
@@ -86,6 +88,66 @@ export const UsernameForm = ({
             value={username}
             setValue={(e) => {
               setUsername(
+                e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, "")
+              );
+            }}
+            error={error ? true : false}
+            errorMessage={error}
+            startAdornment={
+              <InputAdornment position="start">
+                <AlternateEmail
+                  style={{
+                    color: theme.custom.colors.secondary,
+                    fontSize: 18,
+                    marginRight: -2,
+                    userSelect: "none",
+                  }}
+                />
+              </InputAdornment>
+            }
+          />
+          <TextInput
+            inputProps={{
+              name: "firstName",
+              autoComplete: "off",
+              spellCheck: "false",
+              autoFocus: true,
+            }}
+            placeholder="firstName"
+            type="text"
+            value={firstName}
+            setValue={(e) => {
+              setfirstName(
+                e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, "")
+              );
+            }}
+            error={error ? true : false}
+            errorMessage={error}
+            startAdornment={
+              <InputAdornment position="start">
+                <AlternateEmail
+                  style={{
+                    color: theme.custom.colors.secondary,
+                    fontSize: 18,
+                    marginRight: -2,
+                    userSelect: "none",
+                  }}
+                />
+              </InputAdornment>
+            }
+          />
+          <TextInput
+            inputProps={{
+              name: "lastName",
+              autoComplete: "off",
+              spellCheck: "false",
+              autoFocus: true,
+            }}
+            placeholder="lastName"
+            type="text"
+            value={lastName}
+            setValue={(e) => {
+              setlastName(
                 e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, "")
               );
             }}
