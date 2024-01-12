@@ -325,7 +325,6 @@ export function OnboardingProvider({
       });
 
       try {
-        console.log(firstName, lastName);
         const res = await fetch(`${BACKEND_API_URL}/users`, {
           method: "POST",
           credentials: "omit",

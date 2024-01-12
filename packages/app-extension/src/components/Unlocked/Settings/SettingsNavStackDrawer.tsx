@@ -13,11 +13,12 @@ import { ContactRequests, Contacts } from "../Messages/Contacts";
 import { Requests } from "../Messages/Requests";
 
 import { CreateMenu } from "./AddConnectWallet/CreateMenu";
-import { CreateMnemonic } from "./AddConnectWallet/CreateMnemonic"
+import { CreateMnemonic } from "./AddConnectWallet/CreateMnemonic";
 import { ImportMenu } from "./AddConnectWallet/ImportMenu";
 import { ImportMnemonic } from "./AddConnectWallet/ImportMnemonic";
 import { ImportSecretKey } from "./AddConnectWallet/ImportSecretKey";
 import { PreferencesAutoLock } from "./Preferences/AutoLock";
+import { Previewname } from "./Preferences/Changename";
 import { PreferencesEthereum } from "./Preferences/Ethereum";
 import { PreferencesEthereumConnection } from "./Preferences/Ethereum/Connection";
 import { PreferenceEthereumCustomRpcUrl } from "./Preferences/Ethereum/CustomRpcUrl";
@@ -105,6 +106,10 @@ export function SettingsNavStackDrawer({
           <NavStackScreen
             name="preferences-trusted-sites"
             component={(props: any) => <PreferencesTrustedSites {...props} />}
+          />
+          <NavStackScreen
+            name="preview-firstname-lastname"
+            component={(props: any) => <Previewname {...props} />}
           />
           <NavStackScreen
             name="preferences-solana"

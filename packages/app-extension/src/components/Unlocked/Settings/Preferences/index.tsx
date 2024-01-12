@@ -90,6 +90,9 @@ export function Preferences() {
     "Trusted Sites": {
       onClick: () => nav.push("preferences-trusted-sites"),
     },
+    "Preview Firstname-Lastname": {
+      onClick: () => nav.push("preview-firstname-lastname"),
+    },
   };
 
   if (BACKPACK_FEATURE_LIGHT_MODE) {
